@@ -1,0 +1,43 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+*.csproj
+*.sln
+*.user
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+sysinfo.txt
+*.apk
+*.aab
+*.unitypackage
+
+# OS / editors
+.DS_Store
+.vs/
+.idea/
+.vscode/
+
+# Python tooling (asset generators)
+__pycache__/
+*.pyc
+
+# Claude Code local agent state
+.claude/
+
+# LoomTide build tooling — not part of the shipped game
+.loomtide/
+.loomtide-fixtures/
+.mcp.json
+Packages/com.loomtide.*
+trace/
