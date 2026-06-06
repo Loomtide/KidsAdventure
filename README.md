@@ -16,6 +16,12 @@ rising counts to earn a full row of stars.
 |---|---|---|
 | ![Start screen](Screenshots/start.png) | ![Gameplay](Screenshots/gameplay.png) | ![Results](Screenshots/reward.png) |
 
+## 🎬 Gameplay video
+
+[![Watch the gameplay video](Screenshots/gameplay.png)](Screenshots/CountTheFruits.mp4)
+
+▶ **[Click to watch the ~35-second gameplay video](Screenshots/CountTheFruits.mp4)** — it opens with a player right here on GitHub.
+
 ## How to play
 
 - Press **Play!** on the start screen.
