@@ -4,7 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Owns the three answer buttons: builds a question (correct value + two near distractors),
 /// evaluates a tapped value, and fires correct/wrong feedback (check + confetti + chime, or
-/// shake + buzz). The round-loop slice calls SetQuestion(n) and listens to OnSolved.
+/// shake + buzz). Each round takes exactly ONE answer — right or wrong locks the buttons and
+/// the round resolves. The round-loop slice calls SetQuestion(n) and listens to OnAnswered.
 /// </summary>
 public class AnswerPanel : MonoBehaviour
 {
@@ -19,10 +20,11 @@ public class AnswerPanel : MonoBehaviour
     [Header("Debug (editor verification)")]
     public int debugSubmit = -1;
     public bool debugSubmitCorrect;
+    public bool debugSubmitWrong;
 
     public int CorrectValue { get; private set; }
-    public bool Solved { get; private set; }
-    public System.Action OnSolved;
+    public bool Answered { get; private set; }
+    public System.Action<bool> OnAnswered; // (wasCorrect)
 
     void Start()
     {
@@ -44,12 +46,18 @@ public class AnswerPanel : MonoBehaviour
             foreach (var b in buttons)
                 if (b != null && b.value == CorrectValue) { Submit(b); break; }
         }
+        if (debugSubmitWrong && buttons != null)
+        {
+            debugSubmitWrong = false;
+            foreach (var b in buttons)
+                if (b != null && b.value != CorrectValue) { Submit(b); break; }
+        }
     }
 
     public void SetQuestion(int correct)
     {
         CorrectValue = correct;
-        Solved = false;
+        Answered = false;
         int[] opts = BuildOptions(correct);
         for (int i = 0; i < buttons.Length && i < opts.Length; i++)
         {
@@ -78,21 +86,22 @@ public class AnswerPanel : MonoBehaviour
 
     public void Submit(AnswerButton b)
     {
-        if (Solved) return;
-        if (b.value == CorrectValue)
+        if (Answered) return;            // one answer per round — no retry
+        Answered = true;
+        bool correct = b.value == CorrectValue;
+        foreach (var bb in buttons) bb.Lock();   // lock the whole row either way
+        if (correct)
         {
-            Solved = true;
             b.PlayCorrect();
-            foreach (var bb in buttons) bb.Lock();
             BurstConfetti();
             SfxPlayer.Play(chimeClip);
-            OnSolved?.Invoke();
         }
         else
         {
             b.PlayWrong();
             SfxPlayer.Play(buzzClip);
         }
+        OnAnswered?.Invoke(correct);
     }
 
     static readonly string[] Palette = { "ff5d72", "ffce4f", "5fe0bd", "b79cff", "ff9aa0", "59c1ff", "ff8a3d" };

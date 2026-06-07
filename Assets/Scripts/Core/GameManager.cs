@@ -4,8 +4,10 @@ using UnityEngine;
 /// <summary>
 /// Drives the round loop. The game waits on the Start screen until StartGame() is called
 /// (by the Start button). For each of N rounds it resets the count, scatters that round's
-/// fruit, poses the matching question, and updates the HUD. A correct answer awards a star,
-/// cheers the mascot, and advances; after the last round it fires OnGameComplete + a fanfare.
+/// fruit, poses the matching question, and updates the HUD. Each round takes one answer:
+/// a correct one awards a star and cheers the mascot, a wrong one earns nothing — either way
+/// the round resolves and the game advances. After the last round it fires OnGameComplete + a
+/// fanfare, so the final star total reflects how many rounds were actually answered correctly.
 /// The Home button calls StopGame() to abandon the run and return to the Start screen.
 /// </summary>
 public class GameManager : MonoBehaviour
@@ -36,13 +38,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (answerPanel != null) answerPanel.OnSolved += HandleCorrect;
+        if (answerPanel != null) answerPanel.OnAnswered += HandleAnswer;
         if (autoStart) StartGame();
     }
 
     void OnDestroy()
     {
-        if (answerPanel != null) answerPanel.OnSolved -= HandleCorrect;
+        if (answerPanel != null) answerPanel.OnAnswered -= HandleAnswer;
     }
 
     /// <summary>Begin a fresh playthrough at round 1 (Start screen's Play button / replay).</summary>
@@ -77,11 +79,15 @@ public class GameManager : MonoBehaviour
         if (hud != null) hud.SetRound(index + 1, roundCounts.Length);
     }
 
-    void HandleCorrect()
+    void HandleAnswer(bool correct)
     {
         if (!Running) return;
-        Stars++;
-        if (hud != null) { hud.SetStars(Stars); hud.Cheer(); }
+        if (correct)
+        {
+            Stars++;
+            if (hud != null) { hud.SetStars(Stars); hud.Cheer(); }
+        }
+        // Wrong: no star awarded — the round is lost and the final score is lower.
         StartCoroutine(NextRoundAfterDelay());
     }
 
