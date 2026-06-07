@@ -74,6 +74,25 @@ def gen_check(size=140):
     img=img.resize((size,size),Image.LANCZOS)
     save(img,'check_badge.png')
 
+def gen_cross(size=160):
+    """Red badge with a white X — wrong-answer feedback stamped over each fruit."""
+    W=H=size*SS
+    img=Image.new('RGBA',(W,H),(0,0,0,0))
+    d=ImageDraw.Draw(img)
+    cx=cy=W/2; r=W*0.40
+    RED=hx('ff5061')
+    d.ellipse([cx-r-W*0.05,cy-r-W*0.05,cx+r+W*0.05,cy+r+W*0.05],fill=(255,255,255,255))  # white ring
+    d.ellipse([cx-r,cy-r,cx+r,cy+r],fill=(*RED,255))
+    # white X (two diagonal strokes with rounded caps)
+    lw=int(W*0.11); a=r*0.42
+    segs=[((cx-a,cy-a),(cx+a,cy+a)), ((cx-a,cy+a),(cx+a,cy-a))]
+    for p,q in segs:
+        d.line([p,q],fill=(255,255,255,255),width=lw)
+        for e in (p,q):
+            d.ellipse([e[0]-lw/2,e[1]-lw/2,e[0]+lw/2,e[1]+lw/2],fill=(255,255,255,255))
+    img=img.resize((size,size),Image.LANCZOS)
+    save(img,'cross.png')
+
 def gen_pop_wav(path, sr=44100):
     dur=0.12
     n=int(sr*dur)
@@ -97,5 +116,6 @@ if __name__=='__main__':
     gen_sparkle()
     gen_plus_one()
     gen_check()
+    gen_cross()
     gen_pop_wav(os.path.join(AUD,'pop.wav'))
     print("done")

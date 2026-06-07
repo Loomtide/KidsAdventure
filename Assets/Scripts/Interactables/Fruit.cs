@@ -137,6 +137,16 @@ public class Fruit : MonoBehaviour
         go.AddComponent<PopIn>();
     }
 
+    /// <summary>Stamp a big red cross over this fruit — wrong-answer feedback.</summary>
+    public void ShowWrong(Sprite cross)
+    {
+        if (cross == null) return;
+        var go = MakeSpriteGo("WrongCross", cross, 20, transform.position);
+        go.transform.SetParent(transform, true);
+        go.transform.localScale = Vector3.one * 1.5f;
+        go.AddComponent<PopIn>();
+    }
+
     GameObject MakeSpriteGo(string name, Sprite sprite, int order, Vector3 worldPos)
     {
         var go = new GameObject(name);

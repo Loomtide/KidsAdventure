@@ -11,6 +11,9 @@ public class FruitSpawner : MonoBehaviour
     [Header("Prefab")]
     public GameObject fruitPrefab;
 
+    [Tooltip("Red cross stamped on every fruit as wrong-answer feedback.")]
+    public Sprite crossSprite;
+
     [Header("Preview")]
     [Tooltip("Spawn previewCount on Start when no GameManager drives the rounds.")]
     public bool spawnOnStart = true;
@@ -65,6 +68,17 @@ public class FruitSpawner : MonoBehaviour
             go.transform.localScale = new Vector3(s, s, 1f);
             go.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-7f, 7f));
             _spawned.Add(go);
+        }
+    }
+
+    /// <summary>Stamp a wrong-answer cross on every spawned fruit.</summary>
+    public void MarkAllWrong()
+    {
+        foreach (var g in _spawned)
+        {
+            if (g == null) continue;
+            var fruit = g.GetComponent<Fruit>();
+            if (fruit != null) fruit.ShowWrong(crossSprite);
         }
     }
 

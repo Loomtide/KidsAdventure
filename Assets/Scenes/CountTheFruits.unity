@@ -1751,6 +1751,7 @@ MonoBehaviour:
   autoSetupOnStart: 0
   debugSubmit: -1
   debugSubmitCorrect: 0
+  debugSubmitWrong: 0
 --- !u!114 &563040808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4581,6 +4582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FruitSpawner
   fruitPrefab: {fileID: 84710300472033260, guid: dd5e5b30ba9ae417ca49deaf05b71d18, type: 3}
+  crossSprite: {fileID: 21300000, guid: 5d22d8c290a1348abb212e82f2df576f, type: 3}
   spawnOnStart: 0
   previewCount: 6
   areaCenter: {x: 0, y: 0.7}

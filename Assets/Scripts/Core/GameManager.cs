@@ -87,7 +87,12 @@ public class GameManager : MonoBehaviour
             Stars++;
             if (hud != null) { hud.SetStars(Stars); hud.Cheer(); }
         }
-        // Wrong: no star awarded — the round is lost and the final score is lower.
+        else if (spawner != null)
+        {
+            // Wrong: no star, and stamp a cross on every fruit as clear feedback before
+            // the round advances. The final score is lower.
+            spawner.MarkAllWrong();
+        }
         StartCoroutine(NextRoundAfterDelay());
     }
 
