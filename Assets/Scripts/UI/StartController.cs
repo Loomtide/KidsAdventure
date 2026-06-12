@@ -1,16 +1,17 @@
 using UnityEngine;
 
 /// <summary>
-/// Owns the Start state: shows the Start screen and hides the gameplay UI (incl. the Home
-/// button, which lives in the gameplay group) until the player taps Play. StartGame() reveals
-/// gameplay and kicks off round 1; GoHome() abandons the run and returns to the Start screen.
+/// Owns the Start state: shows the Start screen and hides the gameplay UI until the player
+/// taps Play. StartGame() reveals gameplay and kicks off round 1; GoHome() abandons the run
+/// and returns to the Start screen. The Home button is NOT part of the gameplay group — it
+/// stays visible on every screen (in the Kids Adventure package it returns to the hub).
 /// </summary>
 public class StartController : MonoBehaviour
 {
     public GameManager game;
     public GameObject startScreen;
     public GameObject endSummary;
-    [Tooltip("Gameplay UI shown only while playing/rewarding (count chip, banner, progress, answer buttons, Home button).")]
+    [Tooltip("Gameplay UI shown only while playing/rewarding (count chip, banner, progress, answer buttons).")]
     public GameObject[] gameplayUI;
 
     void Awake()
