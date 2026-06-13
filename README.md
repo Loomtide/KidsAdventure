@@ -10,7 +10,9 @@ links three gentle, no-fail games — tap a tile to play, and the pink 🏠 **Ho
 > the mascots, the UI, the sound effects, and the background music are **procedurally
 > generated** (see [`Tools/`](Tools/)) — nothing is hand-drawn, stock, or licensed.
 
-![Kids Adventure hub](Screenshots/kids_adventure_home.png)
+🎬 **Gameplay video**
+
+https://github.com/user-attachments/assets/918fe3d5-53c1-4139-a9cb-31282f5e717b
 
 ## The mini-games
 
@@ -22,10 +24,6 @@ confetti, a happy chime, and a star; wrong → a gentle shake and buzz — just 
 | Start | Gameplay | Results |
 |---|---|---|
 | ![Start screen](Screenshots/start.png) | ![Gameplay](Screenshots/gameplay.png) | ![Results](Screenshots/reward.png) |
-
-🎬 **Gameplay video**
-
-https://github.com/user-attachments/assets/65eeb49a-f98c-4698-80b0-51972fc88190
 
 ### 🔷 Shape Match
 One target shape, three answer tiles — tap the one that matches. Five rounds with star
